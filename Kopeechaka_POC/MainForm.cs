@@ -94,18 +94,14 @@ namespace Kopeechaka_POC
             //string data = File.ReadAllText("c:\\new9.html");
             data = data.Replace("\\\"font-weight:bold;", "\"font-weight:bold;");
             // Extract text between specific HTML tag
-            Regex extractHTMLRegex = new Regex("(?:<p.*?style=.font-weight:bold;.*?>)(.*?)(?:<\\/p>)");
+            /////(?:<p.*?style=.font-weight:bold;.*?>)(.*?)(?:</p>)
+            Regex extractHTMLRegex = new Regex("(?:<p.*?style=.font-weight:bold;.*?>)([\\s]+.*?[\\s]+)(?:</p>)");
 
             Match match = extractHTMLRegex.Match(data);
             if (match.Success)
             {
                 string code = match.Groups[1].Captures[0].Value;
-
-                code = code.Replace("\\r\\n", string.Empty);
-                code = code.Trim('_');
-                code = code.Trim('|');
-
-                return code;
+                return code.Trim();
             }
 
             return "** Not Found **";
